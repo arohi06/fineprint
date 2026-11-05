@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>fineprint. - read the small print, without reading it</title>
+<meta name="description" content="Paste a website address. Fineprint reads its privacy policy, terms and trackers and tells you what you're really agreeing to.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script>document.documentElement.dataset.theme=localStorage.getItem('fp_theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')</script>
+<link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+<div class="spot" aria-hidden="true"></div>
+<div class="ring" aria-hidden="true"></div>
+
+<header class="nav">
+  <a class="brand" href="#top">fineprint<span>.</span></a>
+  <nav>
+    <a href="#how">How it works</a>
+    <a href="#history" id="navHistory">My scans</a>
+    <button class="theme" id="themeBtn" type="button" aria-label="Toggle light and dark mode" title="Toggle theme">
+      <svg class="sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M18.7 5.3l-1.6 1.6M6.9 17.1l-1.6 1.6"/></svg>
+      <svg class="moon" viewBox="0 0 24 24"><path d="M20.5 14.2A8.6 8.6 0 0 1 9.8 3.5a8.6 8.6 0 1 0 10.7 10.7z"/></svg>
+    </button>
+    <button class="btn ghost" id="authBtn">Log in</button>
+  </nav>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <p class="eyebrow">Privacy, decoded</p>
+    <h1>Nobody reads the fine print.<br><em>We do.</em></h1>
+    <p class="lede">Drop in any website. Fineprint reads its privacy policy, terms and trackers, then tells you in plain English what you're really agreeing to.</p>
+
+    <form class="scan tilt" id="scanForm" autocomplete="off">
+      <span class="scan-icon">↗</span>
+      <input id="urlInput" type="text" inputmode="url" placeholder="e.g. wikipedia.org" aria-label="Website address" required>
+      <button class="btn primary" id="scanBtn" type="submit">Analyze</button>
+    </form>
+    <p class="hint">Try <button class="chip" data-url="wikipedia.org">wikipedia.org</button>
+      <button class="chip" data-url="theguardian.com">theguardian.com</button>
+      <button class="chip" data-url="duckduckgo.com">duckduckgo.com</button></p>
+    <p class="error" id="error" role="alert" hidden></p>
+
+    <div class="loader" id="loader" hidden>
+      <div class="dots"><i></i><i></i><i></i></div>
+      <p id="loaderText">Fetching the homepage…</p>
+    </div>
+  </section>
+
+  <section id="result" class="result" hidden></section>
+
+  <section id="how" class="how">
+    <p class="eyebrow">How it works</p>
+    <h2>Three quiet steps.</h2>
+    <div class="grid3">
+      <article class="card tilt reveal"><b>01</b><h3>Fetch</h3><p>We visit the site, find its privacy policy, terms and cookie notice, and list every third-party script loading in the background.</p></article>
+      <article class="card tilt reveal"><b>02</b><h3>Read</h3><p>A language model sorts every sentence: data selling, tracking, retention, rights waivers, and the good stuff too, like opt-outs and encryption.</p></article>
+      <article class="card tilt reveal"><b>03</b><h3>Score</h3><p>You get a 0-100 privacy score, a plain-English summary, the exact clauses that matter and a checklist of what to do about them.</p></article>
+    </div>
+  </section>
+
+  <section id="history" class="history" hidden>
+    <p class="eyebrow">Your library</p>
+    <h2>Past scans</h2>
+    <div id="historyList" class="hist-list"></div>
+    <div id="adminBox"></div>
+  </section>
+</main>
+
+<footer>
+  <p><b>fineprint.</b> An academic project: AI Privacy &amp; Consent Analyzer.</p>
+  <p>Aorhi Tyagi · Harmeet Sandhu · Jagriti Prasad · Janhavi Kadam &mdash; guided by Prof. Rubina Shaikh</p>
+  <p class="tiny">Automated analysis is a guide, not legal advice.</p>
+</footer>
+
+<dialog id="authDialog" class="card">
+  <form method="dialog" id="authForm">
+    <h3 id="authTitle">Welcome back</h3>
+    <p class="muted" id="authSub">Log in to keep a history of your scans.</p>
+    <input id="aName" placeholder="Your name" hidden>
+    <input id="aEmail" type="email" placeholder="Email" required>
+    <input id="aPass" type="password" placeholder="Password (6+ characters)" required minlength="6">
+    <p class="error" id="authErr" hidden></p>
+    <button class="btn primary wide" id="authSubmit" type="submit">Log in</button>
+    <p class="switch"><span id="authSwitchText">New here?</span> <a href="#" id="authSwitch">Create an account</a></p>
+    <button class="close" type="button" id="authClose" aria-label="Close">×</button>
+  </form>
+</dialog>
+
+<script src="/assets/app.js"></script>
+</body>
+</html>
